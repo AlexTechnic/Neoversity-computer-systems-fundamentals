@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  python-app:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    environment:
+      - SQLALCHEMY_DATABASE_URL=postgresql+psycopg2://postgres:567234@postgres:5432/hw02
+
+  postgres:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: hw02
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
